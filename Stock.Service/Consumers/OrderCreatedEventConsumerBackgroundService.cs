@@ -38,7 +38,10 @@ namespace Stock.Service.Consumers
         {
             var consumer = new EventingBasicConsumer(Channel);
 
+
             Channel.BasicConsume(BusConst.StockOrderCreatedEventQueue, false, consumer);
+
+            Channel!.CallbackException += Channel_CallbackException;
 
 
             consumer.Received += (model, ea) =>
@@ -62,6 +65,11 @@ namespace Stock.Service.Consumers
             };
 
             return Task.CompletedTask;
+        }
+
+        private void Channel_CallbackException(object? sender, CallbackExceptionEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

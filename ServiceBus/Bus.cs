@@ -13,21 +13,21 @@ namespace ServiceBus
     {
         public Task Send<T>(T message, string exchangeName) where T : class
         {
-            using var channel = GetChannel();
-            channel.ConfirmSelect();
+            //using var channel = GetChannel();
+            //channel.ConfirmSelect();
 
-            //create exchange
-            channel.ExchangeDeclare(exchange: exchangeName, type: ExchangeType.Fanout);
+            ////create exchange
+            //channel.ExchangeDeclare(exchange: exchangeName, type: ExchangeType.Fanout);
 
-            var body = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(message));
+            //var body = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(message));
 
 
-            channel.BasicPublish(exchange: exchangeName,
-                routingKey: "",
-                basicProperties: null,
-                body: body);
+            //channel.BasicPublish(exchange: exchangeName,
+            //    routingKey: "",
+            //    basicProperties: null,
+            //    body: body);
 
-            channel.WaitForConfirms(TimeSpan.FromMinutes(1));
+            //channel.WaitForConfirms(TimeSpan.FromMinutes(1));
             return Task.CompletedTask;
         }
 
