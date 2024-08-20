@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Order.Application;
 using Order.Application.Order;
 using Order.Repository;
+using Repository;
 
 
 var builder = WebApplication.CreateBuilder(args);

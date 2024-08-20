@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Order.Application.Order;
+﻿using Order.Application.Order;
+using Order.Repository;
 
-namespace Order.Repository
+namespace Repository
 {
     public class OrderRepository(AppDbContext context) : IOrderRepository
     {
-        public int CreateOrder(Order order)
+        public int CreateOrder(Order.Repository.Order order)
         {
             context.Orders.Add(order);
 
