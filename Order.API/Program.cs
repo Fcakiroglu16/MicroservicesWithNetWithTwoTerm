@@ -1,6 +1,9 @@
-using MassTransit;
-using Order.Service;
-using ServiceBus;
+using Broker;
+using Caching;
+using Microsoft.EntityFrameworkCore;
+using Order.Application;
+using Order.Application.Order;
+using Order.Repository;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,24 +15,29 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<ServiceBus.IBus, ServiceBus.Bus>();
-builder.Services.AddScoped<IOrderService, OrderService>();
-
-builder.Services.AddMassTransit(configure =>
-{
-    configure.UsingRabbitMq((context, cfg) =>
-    {
-        var busOptions = builder.Configuration.GetSection(nameof(BusOption)).Get<BusOption>();
-
-        cfg.Host(new Uri(busOptions!.Url));
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IBusService, BusServiceAsRabbitMq>();
+builder.Services.AddScoped<ICacheService, CacheService>();
 
 
-        cfg.ConfigureEndpoints(context);
-    });
-});
+builder.Services.AddDbContext<AppDbContext>(options => { options.UseInMemoryDatabase("OrderDb"); });
+builder.Services.AddMemoryCache();
+
+//builder.Services.AddMassTransit(configure =>
+//{
+//    configure.UsingRabbitMq((context, cfg) =>
+//    {
+//        var busOptions = builder.Configuration.GetSection(nameof(BusOption)).Get<BusOption>();
+
+//        cfg.Host(new Uri(busOptions!.Url));
 
 
-builder.Services.Configure<BusOption>(builder.Configuration.GetSection(nameof(BusOption)));
+//        cfg.ConfigureEndpoints(context);
+//    });
+//});
+
+
+//builder.Services.Configure<BusOption>(builder.Configuration.GetSection(nameof(BusOption)));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

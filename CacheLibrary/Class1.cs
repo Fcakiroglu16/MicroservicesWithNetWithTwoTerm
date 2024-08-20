@@ -1,4 +1,4 @@
-﻿namespace Order.Repository
+﻿namespace CacheLibrary
 {
     public class Class1
     {

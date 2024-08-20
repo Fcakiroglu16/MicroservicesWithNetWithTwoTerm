@@ -11,7 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Order.Service\Order.Service.csproj" />
+    <ProjectReference Include="..\Broker\Broker.csproj" />
+    <ProjectReference Include="..\Caching\Caching.csproj" />
+    <ProjectReference Include="..\Order.Application\Order.Application.csproj" />
+    <ProjectReference Include="..\Order.Repository\Repository.csproj" />
   </ItemGroup>
 
 </Project>

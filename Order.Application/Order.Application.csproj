@@ -7,9 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CacheLibrary\CacheLibrary.csproj" />
-    <ProjectReference Include="..\Order.Repository\Repository.csproj" />
-    <ProjectReference Include="..\ServiceBus\ServiceBus.csproj" />
+    <ProjectReference Include="..\Order.Domain\Order.Domain.csproj" />
   </ItemGroup>
 
 </Project>
