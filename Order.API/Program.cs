@@ -19,7 +19,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IBusService, BusServiceAsRabbitMq>();
 builder.Services.AddScoped<ICacheService, CacheService>();
-
+builder.Services.AddMediatR(configuration => configuration.RegisterServicesFromAssemblyContaining<ServiceAssembly>());
 
 builder.Services.AddDbContext<AppDbContext>(options => { options.UseInMemoryDatabase("OrderDb"); });
 builder.Services.AddMemoryCache();

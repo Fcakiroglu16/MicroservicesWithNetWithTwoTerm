@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Order.Application.Order;
 using Order.Application.Order.CreateOrderUseCase;
-using Order.Repository;
 
 namespace Order.API.Controllers
 {
