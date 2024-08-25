@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MassTransit;
+using Order.Service.Services;
 using ServiceBus;
 
 namespace Order.Service
 {
-    public class OrderService(ServiceBus.IBus bus, IPublishEndpoint publishEndpoint) : IOrderService
+    public class OrderService(ServiceBus.IBus bus, IPublishEndpoint publishEndpoint, StockService stockService)
+        : IOrderService
     {
         public async Task Create()
         {
@@ -20,6 +22,9 @@ namespace Order.Service
             });
 
             // await bus.Send(orderCreatedEvent, BusConst.OrderCreatedEventExchange);
+
+
+            var result = await stockService.CheckStockAsync(1, 5);
 
 
             CancellationTokenSource cancellationTokenSource = new();
