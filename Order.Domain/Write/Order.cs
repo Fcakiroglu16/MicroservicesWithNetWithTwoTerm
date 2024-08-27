@@ -1,4 +1,4 @@
-﻿namespace Order.Repository
+﻿namespace Order.Domain.Write
 {
     public class Order
     {

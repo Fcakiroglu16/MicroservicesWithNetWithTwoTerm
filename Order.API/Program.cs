@@ -1,10 +1,11 @@
-using Broker;
 using Caching;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Order.Application;
-using Order.Application.Order;
-using Order.Repository;
+using Order.Application.Products;
 using Repository;
+using Repository.Read;
+using Repository.Write;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,26 +17,24 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-builder.Services.AddScoped<IBusService, BusServiceAsRabbitMq>();
 builder.Services.AddScoped<ICacheService, CacheService>();
+
+builder.Services.AddSingleton<MongoDbContext>();
+builder.Services.AddScoped<IProductWriteRepository, ProductWriteRepository>();
+builder.Services.AddSingleton<IProductReadRepository, ProductReadRepository>();
+
 builder.Services.AddMediatR(configuration => configuration.RegisterServicesFromAssemblyContaining<ServiceAssembly>());
 
 builder.Services.AddDbContext<AppDbContext>(options => { options.UseInMemoryDatabase("OrderDb"); });
 builder.Services.AddMemoryCache();
 
-//builder.Services.AddMassTransit(configure =>
-//{
-//    configure.UsingRabbitMq((context, cfg) =>
-//    {
-//        var busOptions = builder.Configuration.GetSection(nameof(BusOption)).Get<BusOption>();
-
-//        cfg.Host(new Uri(busOptions!.Url));
-
-
-//        cfg.ConfigureEndpoints(context);
-//    });
-//});
+builder.Services.AddMassTransit(configure =>
+{
+    configure.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host(new Uri("amqps://dfvzgnhz:sfg6HpUKbJd5eJxYntrPYCm1dfjcnXxG@toad.rmq.cloudamqp.com/dfvzgnhz"));
+    });
+});
 
 
 //builder.Services.Configure<BusOption>(builder.Configuration.GetSection(nameof(BusOption)));
