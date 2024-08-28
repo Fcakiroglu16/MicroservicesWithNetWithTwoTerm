@@ -1,15 +1,13 @@
-﻿using Order.Domain;
-using Order.Domain.Write;
+﻿using Order.Domain.Write;
 
-namespace Order.Application.Products.Repository
+namespace Order.Application.Products.Repository;
+
+public interface IProductWriteRepository
 {
-    public interface IProductWriteRepository
-    {
-        ValueTask<Category> GetCategory(int id);
-        Task<int> AddCategory(Category category);
-        Task<string> AddProduct(Product product);
+    ValueTask<Category> GetCategory(int id);
+    Task<int> AddCategory(Category category);
+    Task<string> AddProduct(Product product);
 
-        Task UpdateProduct(Product product);
-        Task DeleteProduct(Product product);
-    }
+    Task UpdateProduct(Product product);
+    Task DeleteProduct(Product product);
 }

@@ -2,13 +2,12 @@
 using Order.Domain.Read;
 using Repository.Mongo.Read;
 
-namespace Repository.Mongo.Write
+namespace Repository.Mongo.Write;
+
+public class SyncWriteRepository(MongoDbContext context) : ISyncWriteRepository
 {
-    public class SyncWriteRepository(MongoDbContext context) : ISyncWriteRepository
+    public async Task Create(ProductWithCategory productWithCategory)
     {
-        public async Task Create(ProductWithCategory productWithCategory)
-        {
-            await context.Products.InsertOneAsync(productWithCategory);
-        }
+        await context.Products.InsertOneAsync(productWithCategory);
     }
 }

@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RabbitMQ.Client;
+﻿using RabbitMQ.Client;
 
-namespace ServiceBus
+namespace ServiceBus;
+
+public interface IBus
 {
-    public interface IBus
-    {
-        Task Send<T>(T message, string exchangeName) where T : class;
+    Task Send<T>(T message, string exchangeName) where T : class;
 
-        IModel GetChannel();
-    }
+    IModel GetChannel();
 }

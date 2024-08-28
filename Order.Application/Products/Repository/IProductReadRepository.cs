@@ -1,10 +1,8 @@
-﻿using Order.Application.Products.Dto;
-using Order.Domain.Read;
+﻿using Order.Domain.Read;
 
-namespace Order.Application.Products.Repository
+namespace Order.Application.Products.Repository;
+
+public interface IProductReadRepository
 {
-    public interface IProductReadRepository
-    {
-        Task<List<ProductWithCategory>> GetAll();
-    }
+    Task<List<ProductWithCategory>> GetAll();
 }
