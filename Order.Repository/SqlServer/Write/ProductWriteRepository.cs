@@ -1,7 +1,8 @@
-﻿using Order.Application.Products;
+﻿using Order.Application.Products.Repository;
 using Order.Domain.Write;
+using Repository.Write;
 
-namespace Repository.Write
+namespace Repository.SqlServer.Write
 {
     public class ProductWriteRepository(AppDbContext context) : IProductWriteRepository
     {

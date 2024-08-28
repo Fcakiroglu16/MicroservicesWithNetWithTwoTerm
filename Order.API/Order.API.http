@@ -1,6 +1,21 @@
 @Order.API_HostAddress = http://localhost:5227
 
-GET {{Order.API_HostAddress}}/weatherforecast/
-Accept: application/json
+GET {{Order.API_HostAddress}}/api/products
+Content-Type: application/json
 
 ###
+POST {{Order.API_HostAddress}}/api/Products/CreateCategory
+Content-Type: application/json
+{
+"name":"kalemler"
+
+}
+###
+POST {{Order.API_HostAddress}}/api/products
+Content-Type: application/json
+{
+  "name": "kalem 3",
+  "quantity": 20,
+  "price": 20,
+  "categoryId": 1
+}

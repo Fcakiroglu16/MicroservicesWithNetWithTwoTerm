@@ -1,7 +1,7 @@
 ﻿using MongoDB.Driver;
 using Order.Domain.Read;
 
-namespace Repository.Read
+namespace Repository.Mongo.Read
 {
     public class MongoDbContext
     {

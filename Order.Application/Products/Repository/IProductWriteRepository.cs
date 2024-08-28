@@ -1,7 +1,7 @@
 ﻿using Order.Domain;
 using Order.Domain.Write;
 
-namespace Order.Application.Products
+namespace Order.Application.Products.Repository
 {
     public interface IProductWriteRepository
     {

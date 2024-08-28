@@ -1,8 +1,10 @@
 ﻿using MassTransit;
 using MediatR;
+using Order.Application.Products.Create;
+using Order.Application.Products.Repository;
 using Order.Domain.Events;
 
-namespace Order.Application.Products.Create
+namespace Order.Application.Products.Commands.Create
 {
     public class CreateProductCommandHandler(
         IProductWriteRepository productWriteRepository,
@@ -13,7 +15,7 @@ namespace Order.Application.Products.Create
         {
             var product = new Domain.Write.Product()
             {
-                Id = Guid.NewGuid().ToString(),
+                Id = NewId.NextGuid().ToString(),
                 Name = request.Name,
                 Quantity = request.Quantity,
                 Price = request.Price,
