@@ -5,7 +5,7 @@ namespace Order.Domain.Read
     public class ProductWithCategory
     {
         [BsonId]
-        [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
+        [BsonRepresentation(MongoDB.Bson.BsonType.String)]
         public string Id { get; set; } = default!;
 
         public string Name { get; set; } = default!;

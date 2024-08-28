@@ -4,21 +4,30 @@ using Order.Domain.Read;
 
 namespace Order.Application.Consumers
 {
-    internal class ProductCreatedEventConsumer(ISyncWriteRepository syncWriteRepository)
+    public class ProductCreatedEventConsumer(ISyncWriteRepository syncWriteRepository)
         : IConsumer<ProductCreatedEvent>
     {
-        public Task Consume(ConsumeContext<ProductCreatedEvent> context)
+        public async Task Consume(ConsumeContext<ProductCreatedEvent> context)
         {
-            var productCreatedEvent = context.Message;
-            ;
-
-            syncWriteRepository.Create(new ProductWithCategory()
+            try
             {
-                Id = productCreatedEvent.Id, Name = productCreatedEvent.Name, Quantity = productCreatedEvent.Quantity,
-                Price = productCreatedEvent.Price, CategoryName = productCreatedEvent.CategoryName
-            });
+                var productCreatedEvent = context.Message;
+                ;
 
-            return Task.CompletedTask;
+                await syncWriteRepository.Create(new ProductWithCategory()
+                {
+                    Id = productCreatedEvent.Id,
+                    Name = productCreatedEvent.Name,
+                    Quantity = productCreatedEvent.Quantity,
+                    Price = productCreatedEvent.Price,
+                    CategoryName = productCreatedEvent.CategoryName
+                });
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }
