@@ -1,13 +1,4 @@
-using System.Diagnostics;
-using Docker.API.Services;
-using Microsoft.Extensions.DependencyInjection;
-
 var builder = WebApplication.CreateBuilder(args);
-
-
-// Memory
-// Db
-// File
 
 // Add services to the container.
 
@@ -16,20 +7,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddHttpClient<Docker2Service>(options =>
-{
-    options.BaseAddress = new Uri(builder.Configuration.GetSection("Microservices")["Docker2BaseUrl"]!);
-});
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
-
-app.UseSwagger();
-app.UseSwaggerUI();
 
 app.UseAuthorization();
 

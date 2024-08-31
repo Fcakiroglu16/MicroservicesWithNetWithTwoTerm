@@ -1,0 +1,15 @@
+services:
+  docker1.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - Microservices:Docker2BaseUrl=http://docker2.api:8080
+    ports:
+      - "8080"
+  docker2.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+    ports:
+      - "8080"
+ 
