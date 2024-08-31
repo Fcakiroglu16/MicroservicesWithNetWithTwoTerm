@@ -1,15 +1,35 @@
 services:
   docker1.api:
+    restart: always
+    user: root
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
       - Microservices:Docker2BaseUrl=http://docker2.api:8080
+      - ConnectionStrings:SqlServer=Server=sql_db,1433;Database=dockerDb;User=Sa;Password=Password12*;Trusted_Connection=False;TrustServerCertificate=True;Integrated Security=False
     ports:
-      - "8080"
+      - "5000:8080"
+    volumes:
+     - files:/app/wwwroot/files
+    depends_on : 
+     - sql_db
+    ## - c:/c_files:/app/wwwroot/files  #mount
   docker2.api:
+    restart: always
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
     ports:
-      - "8080"
+      - "5002:8080"
+    depends_on : 
+     - sql_db
+  sql_db:
+   restart: always
+   environment:
+        - ACCEPT_EULA=Y
+        - SA_PASSWORD=Password12*
+   ports:
+        - "1433:1433"
+   volumes:
+        - sql_data:/var/opt/mssql
  

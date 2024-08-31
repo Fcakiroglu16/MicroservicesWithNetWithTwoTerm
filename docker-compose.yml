@@ -12,3 +12,11 @@ services:
     build:
       context: .
       dockerfile: Docker2.API/Dockerfile
+  sql_db:
+   image: mcr.microsoft.com/mssql/server:2022-latest
+   container_name: sql_db-container
+volumes:
+  files:
+    driver: local
+  sql_data:
+   driver: local
