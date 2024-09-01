@@ -1,1 +1,1 @@
-# MicroservicesWithNetWithTwoTerm
+docker run -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=Password12* -p 8080:8080 quay.io/keycloak/keycloak:24.0.1 start-dev
