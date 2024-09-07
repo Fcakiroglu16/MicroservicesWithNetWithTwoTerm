@@ -1,3 +1,5 @@
+using App.MicroserviceOne;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -16,7 +18,7 @@ builder.Services.AddAuthentication(x =>
 }).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
 {
     options.Authority = "http://localhost:8080/realms/ACompanyTenant";
-    options.Audience = "app.microservice.one";
+    options.Audience = "app-microservice-one";
 
     options.RequireHttpsMetadata = false;
     options.TokenValidationParameters = new TokenValidationParameters
@@ -32,7 +34,8 @@ builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("AdvancedPolicy", x => { x.RequireClaim("scope", "advanced"); });
 });
-
+builder.Services
+    .AddTransient<IClaimsTransformation, CustomClaimsTransformation>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
