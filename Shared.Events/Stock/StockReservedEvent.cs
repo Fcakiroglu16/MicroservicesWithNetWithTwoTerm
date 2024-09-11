@@ -2,8 +2,8 @@
 
 namespace Shared.Events.Stock
 {
-    public record StockReservedEvent(Guid CorrelationId) : CorrelatedBy<Guid>
+    public record StockReservedEvent : CorrelatedBy<Guid>
     {
-        public Guid CorrelationId { get; } = CorrelationId;
+        public Guid CorrelationId { get; set; }
     }
 }

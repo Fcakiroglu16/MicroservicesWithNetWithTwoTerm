@@ -5,5 +5,6 @@
         string BuyerId,
         string CardNumber,
         string CardNameSurname,
+        decimal TotalPrice,
         Dictionary<int, int> OrderItems);
 }

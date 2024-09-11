@@ -2,8 +2,8 @@
 
 namespace Shared.Events.Payment
 {
-    public record PaymentCompletedEvent(Guid CorrelationId) : CorrelatedBy<Guid>
+    public record PaymentCompletedEvent : CorrelatedBy<Guid>
     {
-        public Guid CorrelationId { get; } = CorrelationId;
+        public Guid CorrelationId { get; set; }
     }
 }

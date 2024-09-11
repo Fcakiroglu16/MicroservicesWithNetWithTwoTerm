@@ -2,9 +2,9 @@
 
 namespace Shared.Events.Payment
 {
-    internal class PaymentStartMessage(Guid correlationId, string CardNumber, string CardNameSurname)
+    public record PaymentStartMessage(string CardNumber, string CardNameSurname, decimal TotalPrice)
         : CorrelatedBy<Guid>
     {
-        public Guid CorrelationId { get; } = correlationId;
+        public Guid CorrelationId { get; set; }
     }
 }

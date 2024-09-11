@@ -2,8 +2,8 @@
 
 namespace Shared.Events.Stock
 {
-    internal class StockReserveStartMessage(Guid correlationId, Dictionary<int, int> StockItems) : CorrelatedBy<Guid>
+    public record StockReserveStartMessage(Dictionary<int, int> StockItems) : CorrelatedBy<Guid>
     {
-        public Guid CorrelationId { get; } = correlationId;
+        public Guid CorrelationId { get; set; }
     }
 }
