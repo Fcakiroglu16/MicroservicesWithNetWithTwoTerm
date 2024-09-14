@@ -23,6 +23,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "B.Microservice", "B.Microse
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Composer.API", "Composer.API\Composer.API.csproj", "{07C7875A-0652-4F86-B220-007A2D8430AF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Observability", "Observability", "{738A31E0-568A-453E-A9FE-0D9EA79ACCD0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Observability.API", "Observability.API\Observability.API.csproj", "{D00D85CC-F8B6-490E-BBDA-ADAB30EA6916}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +65,10 @@ Global
 		{07C7875A-0652-4F86-B220-007A2D8430AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07C7875A-0652-4F86-B220-007A2D8430AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07C7875A-0652-4F86-B220-007A2D8430AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D00D85CC-F8B6-490E-BBDA-ADAB30EA6916}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D00D85CC-F8B6-490E-BBDA-ADAB30EA6916}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D00D85CC-F8B6-490E-BBDA-ADAB30EA6916}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D00D85CC-F8B6-490E-BBDA-ADAB30EA6916}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +82,7 @@ Global
 		{3A0DDB26-194E-4182-9247-AC8E4E23858E} = {6EACB905-6447-443B-8EDC-A5B24ACF2D60}
 		{51B417D8-AE88-4B2C-A69C-D62B6C119507} = {6EACB905-6447-443B-8EDC-A5B24ACF2D60}
 		{07C7875A-0652-4F86-B220-007A2D8430AF} = {6EACB905-6447-443B-8EDC-A5B24ACF2D60}
+		{D00D85CC-F8B6-490E-BBDA-ADAB30EA6916} = {738A31E0-568A-453E-A9FE-0D9EA79ACCD0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2AA32C7D-C477-4ED0-A46E-1A9A43105022}
