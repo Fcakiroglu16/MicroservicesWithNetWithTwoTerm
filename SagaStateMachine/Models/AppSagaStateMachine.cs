@@ -60,12 +60,18 @@ namespace SagaStateMachine.Models
                 When(StockReservedEvent).TransitionTo(StockReservedState).Publish(context =>
                     new PaymentStartMessage(context.Saga.CardNumber,
                             context.Saga.CardNameSurname, context.Saga.TotalPrice)
-                        { CorrelationId = context.Saga.CorrelationId }));
+                        { CorrelationId = context.Saga.CorrelationId })
+                , When(StockNotReservedEvent).TransitionTo(StockNotReservedState).Publish(context => new OrderStatusMessage(context.Saga.OrderCode, 2, context.Message.Reason))
+            );
 
 
             During(StockReservedState,
                 When(PaymentCompletedEvent).TransitionTo(PaymentCompletedState)
-                    .Publish(context => new OrderStatusMessage(context.Saga.OrderCode, 1, "")).Finalize());
+                    .Publish(context => new OrderStatusMessage(context.Saga.OrderCode, 1, "")).Finalize(),
+                When(PaymentFailedEvent).TransitionTo(PaymentFailedState)
+                    .Publish(context => new OrderStatusMessage(context.Saga.OrderCode, 3, context.Message.Reason))
+                    .Publish(context => new StockRollbackStart(context.Saga.OrderCode))
+            );
 
 
             // SetCompletedWhenFinalized();

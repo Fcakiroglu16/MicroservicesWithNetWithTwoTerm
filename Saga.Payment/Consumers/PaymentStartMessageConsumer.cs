@@ -7,15 +7,16 @@ namespace Saga.Payment.Consumers
     {
         public async Task Consume(ConsumeContext<PaymentStartMessage> context)
         {
-            var balance = 3000m;
+            var balance = 10m;
 
             if (balance > context.Message.TotalPrice)
             {
-                Console.WriteLine($"Ödeme alındı :{context.Message.CorrelationId}");
+                Console.WriteLine($"Balance is  enough :{context.Message.CorrelationId}");
                 await context.Publish(new PaymentCompletedEvent() { CorrelationId = context.Message.CorrelationId });
             }
             else
             {
+                Console.WriteLine($"Balance is not enough :{context.Message.CorrelationId}");
                 await context.Publish<PaymentFailedEvent>(new("Balance is not enough")
                     { CorrelationId = context.Message.CorrelationId });
             }

@@ -12,6 +12,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMassTransit(configure =>
 {
     configure.AddConsumer<StockReserveStartMessageConsumer>();
+    configure.AddConsumer<StockRollbackStartConsumer>();
 
     configure.UsingRabbitMq((context, cfg) =>
     {
@@ -19,6 +20,10 @@ builder.Services.AddMassTransit(configure =>
 
         cfg.ReceiveEndpoint("stock-microservice.stock-reserve-start-message.queue",
             e => { e.ConfigureConsumer<StockReserveStartMessageConsumer>(context); });
+
+
+        cfg.ReceiveEndpoint("stock-microservice.stock-rollback-start-message.queue",
+            e => { e.ConfigureConsumer<StockRollbackStartConsumer>(context); });
     });
 });
 

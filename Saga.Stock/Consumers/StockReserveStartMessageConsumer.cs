@@ -11,7 +11,7 @@ namespace Saga.Stock.Consumers
 
             if (hasStock)
             {
-                Console.WriteLine($"stock'tan düştü :{context.Message.CorrelationId}");
+                Console.WriteLine($"Stock is  enough :{context.Message.CorrelationId}");
                 await context.Publish<StockReservedEvent>(new
                 {
                     CorrelationId = context.Message.CorrelationId
@@ -19,11 +19,9 @@ namespace Saga.Stock.Consumers
             }
             else
             {
-                await context.Publish<StockNotReservedEvent>(new
-                {
-                    CorrelationId = context.Message.CorrelationId,
-                    Reason = "Stock is not enough"
-                });
+                Console.WriteLine($"Stock is not enough :{context.Message.CorrelationId}");
+                await context.Publish(new StockNotReservedEvent("Stock is not enough")
+                    { CorrelationId = context.Message.CorrelationId });
             }
         }
     }
