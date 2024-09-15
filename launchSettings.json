@@ -4,7 +4,8 @@
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
       "serviceActions": {
-        "docker2.api": "StartDebugging"
+        "docker2.api": "StartDebugging",
+        "observability.api": "StartDebugging"
       }
     }
   }

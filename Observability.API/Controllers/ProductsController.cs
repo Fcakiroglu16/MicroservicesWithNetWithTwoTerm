@@ -1,8 +1,10 @@
 ﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Http;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using Observability.API.Models;
+using Observability.API.Services;
+using Shared.Bus;
 
 namespace Observability.API.Controllers
 {
@@ -12,14 +14,16 @@ namespace Observability.API.Controllers
         AppDbContext context,
         ILogger<ProductsController> logger,
         ILoggerFactory loggerFactory,
-        IDistributedCache distributedCache) : ControllerBase
+        IDistributedCache distributedCache,
+        IPublishEndpoint publishEndpoint,
+        StockService stockService) : ControllerBase
     {
-        private static HttpClient client = new HttpClient();
-
-
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
+            await publishEndpoint.Publish(
+                new ProductAddedEvent(1, "kalem 1", 100, Activity.Current!.TraceId.ToString()));
+
             //var orderLogger = loggerFactory.CreateLogger("Order.API.ProductController");
 
             //orderLogger.LogInformation("Get Metodu çağrıldı(loggerFactory)");
@@ -40,17 +44,33 @@ namespace Observability.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post()
         {
+            logger.LogInformation("Produts >Post Methodu başladı");
+
             context.Products.Add(new Product() { Name = "kalem 1", Price = 300 });
 
             await context.SaveChangesAsync();
 
 
-            await client.GetAsync("https://www.google.com");
-
-
             await distributedCache.SetStringAsync("userId", "123");
 
-            return Ok();
+            using (var activity = ActivitySourceProvider.ActivitySource.StartActivity("File(app.txt)"))
+            {
+                activity!.SetTag("userId", "123");
+                await System.IO.File.WriteAllTextAsync("app.txt", "Merhaba Dünya");
+            }
+
+            await publishEndpoint.Publish(
+                new ProductAddedEvent(1, "kalem 1", 100, Activity.Current!.TraceId.ToString()));
+
+
+            var result = await stockService.GetStock();
+            logger.LogInformation("Produts >Post Methodu bitti");
+
+            logger.LogInformation("Sipariş oluştu(OrderCode={orderCode})(UserId={userId})", "abc", "123");
+
+            return Ok(result);
+
+
             //var orderCode = "123";
             //var userId = "5";
 
